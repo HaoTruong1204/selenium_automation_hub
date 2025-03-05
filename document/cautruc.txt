@@ -1,0 +1,22 @@
+selenium_automation_project/
+├── main.py                       # Điểm khởi động ứng dụng PyQt5
+├── modules
+│   ├── __init__.py
+│   ├── config.py                 # Chứa hằng số, cấu hình dùng chung
+│   ├── dashboard.py             # DashboardWidget hiển thị trạng thái tự động
+│   ├── automation.py            # AutomationWidget giao diện
+│   ├── automation_worker.py     # Class QThread xử lý Selenium (logic tách riêng)
+│   ├── data_processing.py       # DataProcessingWidget hiển thị/xử lý dữ liệu
+│   ├── logs.py                  # LogsWidget hiển thị log
+│   ├── script_manager.py        # ScriptManagerWidget quản lý kịch bản
+│   └── settings.py              # SettingsDialog để cấu hình (proxy, delay, headless...)
+├── resources
+│   ├── icons
+│   │   ├── automation.png
+│   │   ├── data.png
+│   │   ├── logs.png
+│   │   ├── script.png
+│   │   └── settings.png
+│   └── qss
+│       └── app_style.qss        # File QSS style cho toàn bộ UI
+└── README.md

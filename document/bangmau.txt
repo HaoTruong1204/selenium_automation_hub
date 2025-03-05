@@ -1,0 +1,7 @@
+Màu Nổi Bật (Primary)	Xanh Dương	#0000FF	Dùng làm màu chính (nút bấm, tiêu đề chính)
+Màu Nền (Background)	Xám Nhạt	#F5F5F5	Nền sáng giúp UI dễ đọc
+Màu Văn Bản (Text)	Đen Nhạt	#333333	Màu chữ chính, dễ đọc
+Màu Tương Phản (Accent)	Cam Nhạt	#FF9900	Dùng làm nút kêu gọi hành động (CTA)
+Màu Hover (Hiệu Ứng Rê Chuột)	Xanh Đậm	#0000CC	Màu khi rê chuột vào nút
+Màu Border/Input	Xám	#CCCCCC	Viền hộp thoại, input form
+Màu Tinh Tế (Subtle Colors)	Trắng	#FFFFFF	Nền phụ trợ giúp giao diện không quá rối

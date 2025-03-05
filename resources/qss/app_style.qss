@@ -1,0 +1,133 @@
+/* app_style.qss - Bảng màu được yêu cầu:
+   Primary:   #0000FF
+   Background:#F5F5F5
+   Text:      #333333
+   Accent:    #FF9900
+   Hover:     #0000CC
+   Border:    #CCCCCC
+   Subtle BG: #FFFFFF
+*/
+
+QMainWindow, QDialog, QWidget {
+    background-color: #F5F5F5;
+    color: #333333;
+    font-family: "Segoe UI";
+    font-size: 10pt;
+}
+
+QLabel { color: #333333; }
+
+QPushButton {
+    background-color: #0000FF;  /* Primary */
+    color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    padding: 6px 10px;
+}
+QPushButton:hover {
+    background-color: #0000CC;  /* Hover */
+}
+QPushButton:pressed {
+    background-color: #FF9900;  /* Accent */
+}
+
+/* Cho phép tạo nút CTA (nếu muốn gán objectName="ctaButton") */
+QPushButton#ctaButton {
+    background-color: #FF9900;
+    color: #FFFFFF;
+}
+QPushButton#ctaButton:hover {
+    background-color: #0000CC;
+}
+QPushButton#ctaButton:pressed {
+    background-color: #000080;
+}
+
+QLineEdit, QSpinBox, QDoubleSpinBox, QComboBox, QTextEdit {
+    background-color: #FFFFFF;  /* Subtle BG */
+    color: #333333;
+    border: 1px solid #CCCCCC;
+    border-radius: 3px;
+    padding: 4px;
+}
+QLineEdit:focus, QSpinBox:focus, QDoubleSpinBox:focus, QComboBox:focus, QTextEdit:focus {
+    border: 1px solid #0000FF; /* Focus border */
+}
+
+/* Table */
+QTableWidget {
+    background-color: #FFFFFF;
+    alternate-background-color: #FAFAFA;
+    gridline-color: #CCCCCC;
+    color: #333333;
+}
+QHeaderView::section {
+    background-color: #F5F5F5;
+    color: #333333;
+    border: 1px solid #CCCCCC;
+    padding: 4px;
+}
+
+/* ProgressBar */
+QProgressBar {
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    text-align: center;
+    height: 16px;
+    border-radius: 4px;
+}
+QProgressBar::chunk {
+    background-color: #0000FF; /* Primary bar */
+    border-radius: 4px;
+}
+
+/* TabWidget */
+QTabWidget::pane {
+    border: 1px solid #CCCCCC;
+    background: #FFFFFF;
+}
+QTabBar::tab {
+    background: #FFFFFF;
+    color: #333333;
+    border: 1px solid #CCCCCC;
+    margin-right: -1px;
+    padding: 5px 10px;
+}
+QTabBar::tab:hover {
+    background: #FAFAFA;
+}
+QTabBar::tab:selected {
+    border-color: #0000FF;
+    border-bottom-color: #FFFFFF;
+}
+
+/* MenuBar & Menu */
+QMenuBar {
+    background-color: #F5F5F5;
+    color: #333333;
+}
+QMenuBar::item {
+    background-color: transparent;
+    padding: 4px 10px;
+    border: 1px solid transparent;
+}
+QMenuBar::item:selected {
+    background-color: #0000CC;
+    color: #FFFFFF;
+}
+QMenu {
+    background-color: #FFFFFF;
+    color: #333333;
+}
+QMenu::item:selected {
+    background-color: #0000CC;
+    color: #FFFFFF;
+}
+
+/* Tooltip */
+QToolTip {
+    background-color: #F5F5F5;
+    color: #333333;
+    border: 1px solid #CCCCCC;
+    padding: 3px;
+}

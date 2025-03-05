@@ -1,0 +1,7 @@
+automation.png
+│       ├── data.png
+│       ├── logs.png
+│       ├── settings.png
+│       └── script.png
+
+
