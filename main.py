@@ -1,130 +1,89 @@
-# main.py
+
 import sys
 import os
-from PyQt5.QtWidgets import QApplication, QMainWindow, QStatusBar, QWidget, QVBoxLayout, QSplitter, QListWidget, QListWidgetItem, QStackedWidget
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
+import logging
+import traceback
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtCore import Qt, QSettings
+import datetime
 
-# Import hằng số cấu hình
-from modules.config import APP_TITLE, APP_WIDTH, APP_HEIGHT, APP_ICON, QSS_FILE
-# Import UI widgets
-from modules.dashboard import DashboardWidget
-from modules.automation import AutomationWidget
-from modules.data_processing import DataProcessingWidget
-from modules.logs import LogsWidget
-from modules.script_manager import ScriptManagerWidget
-from modules.settings import SettingsDialog
+# Tính đường dẫn gốc của ứng dụng
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+# Thêm thư mục gốc vào sys.path để có thể import modules
+sys.path.insert(0, BASE_DIR)
 
-class MainWindow(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle(APP_TITLE)
-        self.setGeometry(100, 100, APP_WIDTH, APP_HEIGHT)
-
-        if os.path.exists(APP_ICON):
-            self.setWindowIcon(QIcon(APP_ICON))
-
-        # Tạo status bar
-        self.status_bar = QStatusBar()
-        self.setStatusBar(self.status_bar)
-
-        # Khởi tạo UI
-        self.setup_ui()
-
-        # Áp dụng QSS style
-        self.apply_stylesheet()
-
-    def setup_ui(self):
-        """Tạo sidebar + stacked widget chứa các trang (Dashboard, Automation, Data, Logs, Script Manager)."""
-        central_widget = QWidget()
-        self.setCentralWidget(central_widget)
-
-        main_layout = QVBoxLayout(central_widget)
-
-        splitter = QSplitter(Qt.Horizontal)
-        main_layout.addWidget(splitter)
-
-        # Tạo Sidebar (QListWidget)
-        self.sidebar = QListWidget()
-        self.sidebar.setFixedWidth(200)
-
-        # Các mục menu (tên + icon)
-        items = [
-            ("Dashboard",      "resources/icons/automation.png"),
-            ("Automation",     "resources/icons/automation.png"),
-            ("Data",           "resources/icons/data.png"),
-            ("Logs",           "resources/icons/logs.png"),
-            ("Script Manager", "resources/icons/script.png"),
-            ("Settings",       "resources/icons/settings.png")
+# Setup logging
+def setup_logging():
+    """Thiết lập cấu hình logging ban đầu"""
+    # Tạo thư mục logs nếu chưa tồn tại
+    log_dir = os.path.join(BASE_DIR, 'logs')
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir)
+    
+    # Tạo tên file log theo ngày-tháng-năm
+    today = datetime.datetime.now().strftime('%Y-%m-%d')
+    log_file = os.path.join(log_dir, f'app_{today}.log')
+    
+    # Cấu hình logging
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S',
+        handlers=[
+            logging.FileHandler(log_file, encoding='utf-8'),
+            logging.StreamHandler()
         ]
-        for text, icon_path in items:
-            icon = QIcon(icon_path) if os.path.exists(icon_path) else QIcon()
-            item = QListWidgetItem(icon, text)
-            self.sidebar.addItem(item)
+    )
+    
+    # Giảm log level của một số module gây noise
+    logging.getLogger('urllib3').setLevel(logging.WARNING)
+    logging.getLogger('selenium').setLevel(logging.WARNING)
+    logging.getLogger('webdriver_manager').setLevel(logging.INFO)
+    
+    return logging.getLogger()
 
-        # Tạo stacked widget để chứa các trang
-        self.stacked_widget = QStackedWidget()
+# Thiết lập logging
+logger = setup_logging()
+logger.info("=== KHỞI ĐỘNG ỨNG DỤNG SELENIUM AUTOMATION HUB ===")
 
-        # Khởi tạo các trang
-        self.dashboard_page = DashboardWidget()
-        self.automation_page = AutomationWidget()
-        self.data_page = DataProcessingWidget()
-        self.logs_page = LogsWidget()
-        self.script_manager_page = ScriptManagerWidget()
-
-        # Thêm trang vào stacked
-        self.stacked_widget.addWidget(self.dashboard_page)       # index 0
-        self.stacked_widget.addWidget(self.automation_page)      # index 1
-        self.stacked_widget.addWidget(self.data_page)            # index 2
-        self.stacked_widget.addWidget(self.logs_page)            # index 3
-        self.stacked_widget.addWidget(self.script_manager_page)  # index 4
-
-        # Settings là dialog, không cần add vào stacked
-        self.settings_dialog = None
-
-        splitter.addWidget(self.sidebar)
-        splitter.addWidget(self.stacked_widget)
-
-        # Bắt sự kiện chọn sidebar => đổi trang
-        self.sidebar.currentRowChanged.connect(self.display_page)
-
-    def display_page(self, index):
-        if index == 5:  # Mục Settings
-            self.open_settings_dialog()
-        else:
-            self.stacked_widget.setCurrentIndex(index)
-            page_names = ["Dashboard", "Automation", "Data", "Logs", "Script Manager"]
-            if index < len(page_names):
-                self.statusBar().showMessage(f"Đang hiển thị: {page_names[index]}")
-
-    def open_settings_dialog(self):
-        dlg = SettingsDialog(self)
-        if dlg.exec_():
-            # Xử lý nếu người dùng bấm OK
-            pass
-        # Reset sidebar trở về trang hiện tại
-        self.sidebar.setCurrentRow(self.stacked_widget.currentIndex())
-
-    def apply_stylesheet(self):
-        """Tải và áp dụng QSS style."""
-        if os.path.exists(QSS_FILE):
-            try:
-                with open(QSS_FILE, "r", encoding="utf-8") as f:
-                    style = f.read()
-                    self.setStyleSheet(style)
-                print("✅ Theme QSS đã được áp dụng!")
-            except Exception as e:
-                print(f"Không thể load QSS: {e}")
-        else:
-            print(f"Không tìm thấy file QSS: {QSS_FILE}")
-
+try:
+    # Import module chính
+    from modules.main_window import MainWindow
+    from modules.automation_worker_fixed import EnhancedAutomationWorker
+    logger.info("Đã import thành công các module cần thiết")
+except ImportError as e:
+    logger.error(f"Lỗi khi import module: {e}")
+    traceback.print_exc()
+    sys.exit(1)
 
 def main():
+    """Hàm chính để khởi động ứng dụng"""
+    # Thiết lập môi trường
+    os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
+    
+    # Tạo ứng dụng Qt
     app = QApplication(sys.argv)
-    window = MainWindow()
-    window.show()
+    app.setApplicationName("Selenium Automation Hub")
+    app.setOrganizationName("GDU")
+    app.setAttribute(Qt.AA_UseHighDpiPixmaps)
+    app.setStyle("Fusion")  # Sử dụng style Fusion cho giao diện nhất quán
+    
+    # Đặt đường dẫn icon cho ứng dụng
+    icon_path = os.path.join(BASE_DIR, "resources", "icons", "app_icon.png")
+    if os.path.exists(icon_path):
+        from PyQt5.QtGui import QIcon
+        app.setWindowIcon(QIcon(icon_path))
+    
+    # Tạo cửa sổ chính
+    main_window = MainWindow()
+    main_window.show() 
+    # Log thông tin khởi động
+    logger.info(f"Giao diện ứng dụng đã được khởi động thành công")
+    
+    # Chạy event loop
     sys.exit(app.exec_())
 
 if __name__ == "__main__":
     main()
+        

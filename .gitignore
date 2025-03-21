@@ -1,0 +1,17 @@
+# Thư mục dữ liệu tạm
+data/
+logs/
+downloads/
+captcha/
+__pycache__/
+*.pyc
+
+# Thư mục môi trường
+venv/
+env/
+.env
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-* 

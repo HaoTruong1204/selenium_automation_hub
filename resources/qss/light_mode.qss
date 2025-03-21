@@ -1,0 +1,287 @@
+/*
+  light_mode.qss - Giao diện sáng (Light Mode)
+  --------------------------------------------
+  Tông xám nhạt, chữ xanh đen, accent xanh dương,
+  StatCard pastel, dễ nhìn và hiện đại.
+*/
+
+/* 1. Global */
+QWidget {
+    font-family: "Segoe UI", sans-serif;
+    font-size: 14px;
+    color: #2c3e50;
+    background-color: #f0f3f5;
+}
+
+/* MainWindow */
+QMainWindow {
+    background-color: #f0f3f5;
+    border: none;
+}
+
+/* MenuBar & Menu */
+QMenuBar {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 2px;
+}
+QMenuBar::item {
+    padding: 5px 10px;
+    background: transparent;
+}
+QMenuBar::item:selected {
+    background-color: #34495e;
+    border-radius: 4px;
+}
+QMenu {
+    background-color: #ecf0f1;
+    border: 1px solid #bdc3c7;
+}
+QMenu::item {
+    padding: 5px 10px;
+    color: #2c3e50;
+}
+QMenu::item:selected {
+    background-color: #3498db;
+    color: #ffffff;
+}
+
+/* ToolBar & DockWidget */
+QToolBar {
+    background-color: #ecf0f1;
+    border: 1px solid #bdc3c7;
+}
+QToolButton {
+    background: transparent;
+    margin: 4px;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+QToolButton:hover {
+    background-color: #dce3e8;
+}
+QDockWidget {
+    border: 1px solid #bdc3c7;
+}
+
+/* TabWidget & TabBar */
+QTabWidget::pane {
+    border: 1px solid #bdc3c7;
+    background: #ffffff;
+}
+QTabBar::tab {
+    background: #ecf0f1;
+    padding: 8px 12px;
+    margin-right: 2px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+QTabBar::tab:hover {
+    background: #dce3e8;
+}
+QTabBar::tab:selected {
+    background: #3498db;
+    color: #ffffff;
+}
+
+/* GroupBox */
+QGroupBox {
+    margin-top: 1em;
+    font-weight: bold;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    padding-top: 20px;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 10px;
+    padding: 0 3px;
+    color: #2c3e50;
+}
+
+/* TableWidget, TreeWidget, TableView */
+QTableWidget, QTreeWidget, QTableView {
+    background-color: #ffffff;
+    border: 1px solid #bdc3c7;
+    gridline-color: #d0d0d0;
+}
+QTableWidget::item, QTreeWidget::item {
+    padding: 5px;
+    color: #2c3e50;
+}
+QTableWidget::item:hover, QTreeWidget::item:hover {
+    background-color: #ecf0f1;
+}
+QTableWidget::item:selected, QTreeWidget::item:selected {
+    background-color: #3498db;
+    color: #ffffff;
+}
+QHeaderView::section {
+    background-color: #ecf0f1;
+    padding: 5px;
+    border: 1px solid #bdc3c7;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* Input Fields (LineEdit, TextEdit, SpinBox, ComboBox) */
+QLineEdit, QPlainTextEdit, QTextEdit, QSpinBox, QDoubleSpinBox {
+    background-color: #ffffff;
+    border: 2px solid #bdc3c7;
+    border-radius: 4px;
+    padding: 4px;
+}
+QLineEdit:focus, QPlainTextEdit:focus, QTextEdit:focus,
+QSpinBox:focus, QDoubleSpinBox:focus {
+    border: 2px solid #3498db;
+}
+QComboBox {
+    background-color: #ffffff;
+    border: 2px solid #bdc3c7;
+    border-radius: 4px;
+    padding: 4px;
+}
+QComboBox::drop-down {
+    border: none;
+    width: 20px;
+}
+QComboBox::down-arrow {
+    image: url(:/icons/down_arrow.png);
+    width: 12px;
+    height: 12px;
+}
+QComboBox QAbstractItemView {
+    background-color: #ffffff;
+    selection-background-color: #3498db;
+    selection-color: #ffffff;
+    border: 1px solid #bdc3c7;
+}
+
+/* QPushButton */
+QPushButton {
+    background-color: #3498db;
+    color: #ffffff;
+    border: 2px solid #2980b9;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #2980b9;
+}
+QPushButton:pressed {
+    background-color: #2574a9;
+}
+QPushButton:disabled {
+    background-color: #bdc3c7;
+    color: #7f8c8d;
+}
+
+/* ProgressBar */
+QProgressBar {
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    background: #ecf0f1;
+    text-align: center;
+    color: #2c3e50;
+    font-weight: bold;
+    height: 20px;
+}
+QProgressBar::chunk {
+    background-color: #3498db;
+    border-radius: 5px;
+}
+
+/* ScrollBar */
+QScrollBar:vertical, QScrollBar:horizontal {
+    background: #f0f3f5;
+    border: none;
+    width: 10px;
+    height: 10px;
+}
+QScrollBar::handle:vertical, QScrollBar::handle:horizontal {
+    background: #bdc3c7;
+    border-radius: 5px;
+    min-width: 20px;
+    min-height: 20px;
+}
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical,
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
+    background: none;
+    border: none;
+}
+
+/* Slider */
+QSlider::groove:horizontal, QSlider::groove:vertical {
+    background: #bdc3c7;
+    border-radius: 2px;
+}
+QSlider::handle:horizontal, QSlider::handle:vertical {
+    background: #3498db;
+    border: 1px solid #2980b9;
+    width: 14px;
+    height: 14px;
+    margin: -4px 0;
+    border-radius: 7px;
+}
+
+/* ToolTip */
+QToolTip {
+    background-color: #34495e;
+    color: #ecf0f1;
+    border: 1px solid #2c3e50;
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 11px;
+}
+
+/* StatusBar */
+QStatusBar {
+    background-color: #ecf0f1;
+    color: #2c3e50;
+    border: 1px solid #bdc3c7;
+}
+
+/* Pastel StatCard 
+   (objectName="statCard", property "cardColor" = "blue"/"green"/"purple"/"orange", etc.)
+*/
+QFrame#statCard {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 15px;
+    color: #2c3e50; /* Chữ tối */
+}
+
+QFrame#statCard[cardColor="blue"] {
+    background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0,
+                                stop: 0 #74c0fc,
+                                stop: 1 #a5d8ff);
+}
+QFrame#statCard[cardColor="green"] {
+    background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0,
+                                stop: 0 #8ce99a,
+                                stop: 1 #b2f2bb);
+}
+QFrame#statCard[cardColor="purple"] {
+    background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0,
+                                stop: 0 #b197fc,
+                                stop: 1 #d0bfff);
+}
+QFrame#statCard[cardColor="orange"] {
+    background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0,
+                                stop: 0 #ffd8a8,
+                                stop: 1 #ffc078);
+}
+
+QLabel#statTitle {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #2c3e50;
+}
+QLabel#statValue {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2c3e50;
+}
